@@ -36,6 +36,7 @@ var loadCollections = function(){
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/address.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/person.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/productCategory.js")));
+	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/cartItem.js")));
 	
 }
 
