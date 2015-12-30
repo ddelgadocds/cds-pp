@@ -1,6 +1,6 @@
 var App = require("./core/app.js")
 
 
-App.basicInit(function(){
+App.initRestfulServer(function(err){
 	console.log("Platform initialized");
 })

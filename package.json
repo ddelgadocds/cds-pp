@@ -1,10 +1,11 @@
 {
   "dependencies": {
     "async": "^1.5.0",
+    "bugsnag": "*",
+    "express": "^4.13.3",
     "nconf": "^0.8.2",
     "sails-postgresql": "^0.10.17",
-    "waterline": "^0.10.28",
-    "bugsnag": "*"
+    "waterline": "^0.10.28"
   },
   "devDependencies": {
     "chai": "*",
