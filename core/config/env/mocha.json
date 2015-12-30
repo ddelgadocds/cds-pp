@@ -1,0 +1,12 @@
+{
+
+    "connections": {
+	  	"postgres": {
+		    "module"    : "sails-postgresql",
+		    "host"      : "localhost",
+		    "port"      :  5432,
+		    "database"  : "printPlatformMocha",
+		    "adapter"   : "postgres"
+	  	}
+    }
+}

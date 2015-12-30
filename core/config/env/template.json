@@ -1,0 +1,14 @@
+{
+
+    "connections": {
+	  	"postgres": {
+		    "module"    : "sails-postgresql",
+		    "host"      : "localhost",
+		    "port"      :  5432,
+		    "user"      : "user",
+		    "password"  : "pass",
+		    "database"  : "someDB",
+		    "adapter"   : "postgres"
+	  	}
+    }
+}
