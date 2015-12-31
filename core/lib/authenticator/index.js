@@ -1,8 +1,14 @@
 var Nconf = require('nconf');
 var jwt    = require('jsonwebtoken');
-
 var crypto = require('crypto');
 
+module.exports = {
+	ensureAuthenticated : ensureAuthenticated,
+	encryptPassword : encryptPassword,
+	makeSalt : makeSalt,
+	authenticate : authenticate,
+	logout	: logout
+}
 
 
 function ensureAuthenticated(role,req,res,next){
@@ -21,22 +27,22 @@ function ensureAuthenticated(role,req,res,next){
 		jwt.verify(token, Nconf.get("secretKey"), function(err, loggedUser) {      
 			
 			if (err) {
-				return res.status(403).send("invalid token");   
+				return res.status(403).send("invalid token : " + err);   
 			} else {
 				
 				var model = models[role];
-
 				//need to check if this token was not expired
 				model.findOne({id : loggedUser.id},function(err,user){
 					if (err) {
 						return res.status(500).send("internal error : " + err);
 					};
 					if (!user) {
-						return res.status(401).send("invalid token");
+						return res.status(403).send("invalid token");
 					};
 					if (tokenIsValid(user,token)) {
 						// if everything is good, save to request for use in other routes
-						req.loggedUser = loggedUser;    
+						req.loggedUser = loggedUser;
+						req.token = token;   
 						next();
 					}else{
 						return res.status(403).send("invalid token");
@@ -109,13 +115,39 @@ function authenticate(req,res,model){
 	})
 }
 
+function logout(req,res,model){
+	
+	model.findOne({id : req.loggedUser.id},function(err,user){
+		if (err) {
+			return res.status(500).send("internal error : " + err);
+		};
+		if (!user) {
+			return res.status(403).send("invalid token");
+		};
+
+		var remainingTokens = user.tokens.filter(function(token){
+			return req.token != token;
+		})
+
+		user.tokens = remainingTokens;
+
+		user.save(function(err){
+			if (err) {
+				res.status(500).send(err);	
+			};
+
+			res.send("OK");
+
+			
+		})
+
+	})
 
 
 
 
-module.exports = {
-	ensureAuthenticated : ensureAuthenticated,
-	encryptPassword : encryptPassword,
-	makeSalt : makeSalt,
-	authenticate : authenticate
+	
 }
+
+
+

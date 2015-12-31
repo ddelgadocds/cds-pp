@@ -1,15 +1,18 @@
 var Admin = require("../storage").Admin(); 
-var jwt    = require('jsonwebtoken');
-var Nconf = require("nconf");
 var Authenticator = require("../Authenticator");
 
 module.exports = {
 	create 				: create,
-	authenticate 		: authenticate
+	authenticate 		: authenticate,
+	logout				: logout
 }
 
 function authenticate(req,res){
 	Authenticator.authenticate(req,res,Admin);
+}
+
+function logout(req,res){
+	Authenticator.logout(req,res,Admin);
 }
 
 function create(req,res){

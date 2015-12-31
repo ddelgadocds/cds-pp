@@ -25,7 +25,6 @@ var  initializeWaterline = function(cb){
 
 	_waterline.initialize(waterlineConfig, function (err, models) {
 		_models = models;
-		console.log("err " + err);
 		cb(err);
 	})
 }
