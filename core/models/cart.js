@@ -9,5 +9,5 @@ module.exports = {
 		card 		: { model: 'creditCard' }, // not a ref to CreditCard collection because we need to persist before we can save the card
 		shippingAddress: { model : 'address'}
 		
-		}
+	}
 }

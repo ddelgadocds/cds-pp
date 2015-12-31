@@ -40,7 +40,9 @@ var loadCollections = function(){
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/creditCard.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/person.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/order.js")));
+	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/product.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/productCategory.js")));
+	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/productVariant.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/user.js")));
 	
 }

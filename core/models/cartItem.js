@@ -3,7 +3,7 @@ module.exports = {
 	connection: 'postgres',
 	attributes: {
 		name 		: 'string',
-		//product		: { model : 'product' ,required : true },
+		product		: { model : 'product' ,required : true },
 		order		: { model : 'order' },
 		quantity	: {type : 'number', required : true},
 		price		: {type : 'number', required : true},
