@@ -36,10 +36,13 @@ var loadCollections = function(){
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/address.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/person.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/productCategory.js")));
+	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/admin.js")));
 	
 }
 
 module.exports = {
 	init : init,
 	models : function(){return _models},
+	Admin  : function(){return _models.collections.admin},
+	User  : function(){return _models.collections.user}
 }
