@@ -7,7 +7,8 @@ module.exports = {
 	encryptPassword : encryptPassword,
 	makeSalt : makeSalt,
 	authenticate : authenticate,
-	logout	: logout
+	logout	: logout,
+	loginAsUser : loginAsUser
 }
 
 
@@ -109,12 +110,38 @@ function authenticate(req,res,model){
 			}
 			res.send({user : basicUser , token : token})
         })
-
-		
 		
 	})
 }
+function loginAsUser(req,res){
+	var Storage = require("../storage");
+	var userEmail = req.body.email;
+	if (!userEmail) {
+		return res.status(400).send("must provide email");
+	};
+	Storage.User().findOne({email : userEmail},function(err,user){
+		if (err) {
+			return res.status(500).send("internal error : " + err);
+		}
+		if (!user) {
+			return res.status(401).send("user not found");
+		}
 
+		var basicUser = user.toBasicObject();
+		
+		var token = jwt.sign(basicUser, Nconf.get("secretKey"));
+
+        user.tokens.push(token);
+
+        user.save(function(err,user){
+        	if (err) {
+				return res.status(500).send("internal error : " + err);
+			}
+			res.send({user : basicUser , token : token})
+        })
+		
+	})
+}
 function logout(req,res,model){
 	
 	model.findOne({id : req.loggedUser.id},function(err,user){
@@ -142,9 +169,6 @@ function logout(req,res,model){
 		})
 
 	})
-
-
-
 
 	
 }

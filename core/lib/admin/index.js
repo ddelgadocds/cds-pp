@@ -4,7 +4,8 @@ var Authenticator = require("../Authenticator");
 module.exports = {
 	create 				: create,
 	authenticate 		: authenticate,
-	logout				: logout
+	logout				: logout,
+	loginAsUser			: loginAsUser
 }
 
 function authenticate(req,res){
@@ -14,12 +15,16 @@ function authenticate(req,res){
 function logout(req,res){
 	Authenticator.logout(req,res,Admin);
 }
+function loginAsUser(req,res){
+	
+	Authenticator.loginAsUser(req,res);
 
+}
 function create(req,res){
 	
 	Admin.create(req.body,function(err,admin){
 		if (err) {
-			res.send("Error " + err);	
+			res.send("internal error " + err);	
 		}else{
 			res.send(admin);	
 		}

@@ -19,7 +19,7 @@ function create(req,res){
 	
 	User.create(req.body,function(err,user){
 		if (err) {
-			res.send("Error " + err);	
+			res.send("internal error " + err);	
 		}else{
 			res.send(user);	
 		}
