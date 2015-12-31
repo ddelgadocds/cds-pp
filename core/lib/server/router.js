@@ -18,11 +18,10 @@ var setRoutes = function(model,routes){
 
 var roleBasedMiddleware = {
 	admin : function(req,res,next){
-		Authenticator.authenticate("admin",req,res,next);
+		Authenticator.ensureAuthenticated("admin",req,res,next);
 	},
 	client : function(req,res,next){
-		Authenticator.authenticate("client",req,res,next);
-		next();
+		Authenticator.ensureAuthenticated("client",req,res,next);
 	},
 	public : function(req,res,next){
 		next();
@@ -32,9 +31,11 @@ var roleBasedMiddleware = {
 
 var adminRoutes 	= require("./routes/admin.js");
 var companyRoutes 	= require("./routes/company.js");
+var userRoutes 	= require("./routes/user.js");
 
 setRoutes('admin',adminRoutes);
 setRoutes('company',companyRoutes);
+setRoutes('user',userRoutes);
 
 
 

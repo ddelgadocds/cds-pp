@@ -1,13 +1,18 @@
 var Nconf = require('nconf');
 var jwt    = require('jsonwebtoken');
-var Storage = require("../storage");
-var models = {
-	"admin" : Storage.Admin(),
-	"client" : Storage.User(),
-}
+
+var crypto = require('crypto');
 
 
-function authenticate(role,req,res,next){
+
+function ensureAuthenticated(role,req,res,next){
+
+	var Storage = require("../storage");
+	var models = {
+		"admin" : Storage.Admin(),
+		"client" : Storage.User(),
+	}
+
 	var token = req.body.token || req.query.token || req.headers['x-access-token'];
 
 	// decode token
@@ -22,15 +27,13 @@ function authenticate(role,req,res,next){
 				var model = models[role];
 
 				//need to check if this token was not expired
-				
 				model.findOne({id : loggedUser.id},function(err,user){
 					if (err) {
 						return res.status(500).send("internal error : " + err);
 					};
 					if (!user) {
-						return res.status(401).send("user not found");
+						return res.status(401).send("invalid token");
 					};
-					
 					if (tokenIsValid(user,token)) {
 						// if everything is good, save to request for use in other routes
 						req.loggedUser = loggedUser;    
@@ -60,6 +63,59 @@ function tokenIsValid(user,targetToken){
 	return filtered.length > 0;
 }
 
+function encryptPassword(password,salt){
+	return crypto.createHmac('sha1', salt).update(password).digest('base64');
+}
+
+function makeSalt(password,salt){
+	return Math.round(new Date().valueOf() * Math.random()) + '';
+}
+
+function authenticate(req,res,model){
+	var email = req.body.email;
+	var password = req.body.password;
+	if (!email) {
+		return res.status(400).send("must provide email");
+	};
+	if (!password) {
+		return res.status(400).send("must provide password");
+	};
+
+	model.findOne({email : email},function(err,user){
+		if (err) {
+			return res.status(500).send("internal error : " + err);
+		}
+		if (!user) {
+			return res.status(401).send("user not found");
+		}
+		if (!user.verifyPassword(password)) {
+			return res.status(401).send("invalid password");	
+		};
+		var basicUser = user.toBasicObject();
+		
+		var token = jwt.sign(basicUser, Nconf.get("secretKey"));
+
+        user.tokens.push(token);
+
+        user.save(function(err,user){
+        	if (err) {
+				return res.status(500).send("internal error : " + err);
+			}
+			res.send({user : basicUser , token : token})
+        })
+
+		
+		
+	})
+}
+
+
+
+
+
 module.exports = {
+	ensureAuthenticated : ensureAuthenticated,
+	encryptPassword : encryptPassword,
+	makeSalt : makeSalt,
 	authenticate : authenticate
 }

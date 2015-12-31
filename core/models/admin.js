@@ -1,5 +1,5 @@
 
-var crypto = require('crypto');
+var Authenticator = require("../lib/authenticator");
 
 module.exports = {
 	identity: 'admin',
@@ -19,7 +19,7 @@ module.exports = {
 	    isFromCsv : {type : 'boolean' , default : false},
 	    salt : 'string',
 	    verifyPassword: function (password) {
-			return encryptPassword(password,this.salt) === this.password;
+			return Authenticator.encryptPassword(password,this.salt) === this.password;
     	},
     	toBasicObject : function(){
     		return {
@@ -30,16 +30,9 @@ module.exports = {
     	}
 	},
 	beforeCreate: function (attrs, cb) {
-    	attrs.salt = makeSalt();
-    	attrs.password = encryptPassword(attrs.password,attrs.salt);
+    	attrs.salt = Authenticator.makeSalt();
+    	attrs.password = Authenticator.encryptPassword(attrs.password,attrs.salt);
     	cb();
   	}
 }
 
-function encryptPassword(password,salt){
-	return crypto.createHmac('sha1', salt).update(password).digest('base64');
-}
-
-function makeSalt(password,salt){
-	return Math.round(new Date().valueOf() * Math.random()) + '';
-}
