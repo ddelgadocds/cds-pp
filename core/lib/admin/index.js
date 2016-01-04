@@ -1,5 +1,5 @@
 var Admin = require("../storage").Admin(); 
-var Authenticator = require("../Authenticator");
+var Authenticator = require("../authenticator");
 
 module.exports = {
 	create 				: create,

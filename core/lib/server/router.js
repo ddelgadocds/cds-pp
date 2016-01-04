@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Authenticator = require("../Authenticator");
+var Authenticator = require("../authenticator");
 
 
 /*** Centralized method to add a route to the router and set its middleware***/

@@ -3,7 +3,7 @@ module.exports = {
 	connection: 'postgres',
 	attributes: {
 		name 		: 'string',
-		//product		: { model : 'product' ,required : true },
+		product		: { model : 'product' ,required : true },
 		order		: { model : 'order' },
 		quantity	: {type : 'number', required : true},
 		price		: {type : 'number', required : true},
@@ -24,7 +24,7 @@ module.exports = {
 		trackingCarrier: 'string' ,
 		trackingUrl	: 'string' ,
 		shipDate	: 'date',
-		proofFileUrl: 'string'
-		//Need to add variants
+		proofFileUrl: 'string',
+		variants 	: { collection: 'productVariant', via  : 'id'}
 	}
 }
