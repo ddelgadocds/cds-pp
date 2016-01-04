@@ -52,5 +52,6 @@ module.exports = {
 	init : init,
 	models : function(){return _models},
 	Admin  : function(){return _models.collections.admin},
-	User  : function(){return _models.collections.user}
+	User   : function(){return _models.collections.user},
+	Company  : function(){return _models.collections.company}
 }
