@@ -33,6 +33,7 @@ var loadCollections = function(){
 	var path = "../../models";
 
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/address.js")));
+	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/admin.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/agency.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/cart.js")));
 	_waterline.loadCollection(Waterline.Collection.extend(require(path+"/cartItem.js")));
@@ -50,4 +51,6 @@ var loadCollections = function(){
 module.exports = {
 	init : init,
 	models : function(){return _models},
+	Admin  : function(){return _models.collections.admin},
+	User  : function(){return _models.collections.user}
 }

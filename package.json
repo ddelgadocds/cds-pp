@@ -1,8 +1,11 @@
 {
   "dependencies": {
     "async": "^1.5.0",
+    "body-parser": "^1.14.2",
     "bugsnag": "*",
     "express": "^4.13.3",
+    "jsonwebtoken": "^5.5.0",
+    "morgan": "^1.6.1",
     "nconf": "^0.8.2",
     "sails-postgresql": "^0.10.17",
     "waterline": "^0.10.28"

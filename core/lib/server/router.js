@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var Authenticator = require("../authenticator");
 
 var setRoutes = function(model,routes){
 	for(var i in routes){
 		var route = routes[i];
-		router[route.method]("/"+model+route.path,route.action);
+		router[route.method]("/"+model+route.path,roleBasedMiddleware[route.role],route.action);
 	}
 }
 
@@ -15,9 +16,26 @@ var setRoutes = function(model,routes){
 //   next();
 // });
 
-var companyRoutes = require("./routes/company.js");
+var roleBasedMiddleware = {
+	admin : function(req,res,next){
+		Authenticator.ensureAuthenticated("admin",req,res,next);
+	},
+	client : function(req,res,next){
+		Authenticator.ensureAuthenticated("client",req,res,next);
+	},
+	public : function(req,res,next){
+		next();
+	}
+}
 
+
+var adminRoutes 	= require("./routes/admin.js");
+var companyRoutes 	= require("./routes/company.js");
+var userRoutes 	= require("./routes/user.js");
+
+setRoutes('admin',adminRoutes);
 setRoutes('company',companyRoutes);
+setRoutes('user',userRoutes);
 
 
 

@@ -1,3 +1,5 @@
+var Authenticator = require("../lib/authenticator");
+
 module.exports = {
 	identity: 'user',
 	connection: 'postgres',
@@ -7,10 +9,11 @@ module.exports = {
 		lastName				: { type: 'string', required: true },
 		phone					: 'string',
 		cell					: 'string',
+		tokens					: { type: 'array',defaultsTo : []},
 		email					: { type: 'string', required: true},
 		isArchived				: 'boolean',
 		defaultShippingAddress	: { model : 'address' },
-		role					: { type: 'string', required: true ,enum: [ 'client', 'community designer', 'LW designer', 'developer', 'copy writer', 'pm', 'employee', 'admin'] },
+		role					: { type: 'string', required: true },
 		gender					: { type: 'string', enum: [ 'male', 'female', 'other' ] },
 		created					: { type: 'date' },
 		lastLogin 				: { type: 'date' },
@@ -27,9 +30,20 @@ module.exports = {
 		isFromCsv				: {	type: 'boolean', default : false},
 		hasToChangePassword 	: { type: 'boolean', default: false },
 		salt 					: { type: 'string' },
-		password 				: {	type: 'string', required: true},
 		companiesWithAccessTo	: { collection: 'company', via  : 'id' },
 		addresses				: { collection: 'address', via  : 'id' },
+		password 				: { type: 'string', required: true,  minLength: 6,  maxLength: 50  },
+		verifyPassword: function (password) {
+				return Authenticator.encryptPassword(password,this.salt) === this.password;
+	    	},
+	    toBasicObject : function(){
+	    	return {
+	    		id : this.id,
+	    		firstName : this.firstName,
+	    		lastName : this.lastName
+	    	}
+	    }
+	},
 		// notifications: {
 		// 	review: {
 		// 		email: Boolean,
@@ -40,9 +54,9 @@ module.exports = {
 		// 		text: Boolean
 		// 	}
 		// },
-		}
+	beforeCreate: function (attrs, cb) {
+    	attrs.salt = Authenticator.makeSalt();
+    	attrs.password = Authenticator.encryptPassword(attrs.password,attrs.salt);
+    	cb();
+  	}
 }
-// set: function(password) {
-// 				this.salt = this.makeSalt();
-// 				return this.encryptPassword(password);
-// 			}
