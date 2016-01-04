@@ -21,7 +21,7 @@ module.exports = {
 		updated			: { type: 'date' },
 		isArchived 		: { type: 'boolean', defaultsTo: false },
 		status			: {	type: 'string', enum: ['draft', 'published', 'deleted'], defaultsTo: 'draft' },
-		variants 		: { collection: 'productVariant', via  : 'name'}
+		variants 		: { collection: 'productVariant', via  : 'id'}
 		// thumbnailImage: {
 		// 	filename: { type: String },
 		// 	friendlyFilename: { type: String }

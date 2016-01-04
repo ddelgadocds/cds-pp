@@ -9,6 +9,7 @@ module.exports = {
 		logoUrl 			: 'string',
 		contacts 			: 'array',
 		addresses			: { collection: 'address', via  : 'company'},
-	    productCategories	: { collection: 'productCategory', via  : 'company'}
+	    productCategories	: { collection: 'productCategory', via  : 'company'},
+	    employees			: { collection: 'person', via  : 'id'}
 	}
 }

@@ -11,7 +11,7 @@ module.exports = {
 		country		: 'string',
 		isDefault	: { type : 'boolean',defaultsTo : false },
 		company 	: { model : 'company' },
-		person 	: { model : 'person' }
+		person  	: { model : 'person' }
 	
 	}
 }

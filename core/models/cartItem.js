@@ -24,7 +24,7 @@ module.exports = {
 		trackingCarrier: 'string' ,
 		trackingUrl	: 'string' ,
 		shipDate	: 'date',
-		proofFileUrl: 'string'
-		//Need to add variants
+		proofFileUrl: 'string',
+		variants 	: { collection: 'productVariant', via  : 'id'}
 	}
 }

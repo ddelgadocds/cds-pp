@@ -22,14 +22,14 @@ module.exports = {
 		lastContacted			: { type: 'date' },
 		stripeBankTokenId		: { type: 'string' },
 		stripeNameOnBankAccount	: { type: 'string' },
-		assignedLast			: { type: 'boolean', default: false }, // only used for a couple pms for the round robin assignment
+		assignedLast			: { type: 'boolean', default: false },
 		avatarUrl				: { type: 'string' },
 		isFromCsv				: {	type: 'boolean', default : false},
 		hasToChangePassword 	: { type: 'boolean', default: false },
-		salt 					: { type: 'string' }
-
-		//addresses				: { collection: 'address', via  : 'person' },
-		// companiesWithAccessTo	: [{ type: Types.ObjectId, ref: 'Company' }],
+		salt 					: { type: 'string' },
+		password 				: {	type: 'string', required: true},
+		companiesWithAccessTo	: { collection: 'company', via  : 'id' },
+		addresses				: { collection: 'address', via  : 'id' },
 		// notifications: {
 		// 	review: {
 		// 		email: Boolean,
@@ -40,27 +40,9 @@ module.exports = {
 		// 		text: Boolean
 		// 	}
 		// },
-		
-		
-
-		// addresses: [{
-		// 	name: { type: String },
-		// 	line1: { type: String },
-		// 	line2: { type: String },
-		// 	city: { type: String },
-		// 	state: { type: String },
-		// 	zip: { type: String },
-		// 	country: {type: String }
-		// }],
-		
-		// password: {
-		// 	type: String,
-		// 	required: 'password is required',
-		// 	set: function(password) {
-		// 		this.salt = this.makeSalt();
-		// 		return this.encryptPassword(password);
-		// 	}
-		// },
-		
 		}
 }
+// set: function(password) {
+// 				this.salt = this.makeSalt();
+// 				return this.encryptPassword(password);
+// 			}
