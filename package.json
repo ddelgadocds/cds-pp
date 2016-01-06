@@ -7,6 +7,9 @@
     "jsonwebtoken": "^5.5.0",
     "morgan": "^1.6.1",
     "nconf": "^0.8.2",
+    "orm": "^2.1.29",
+    "orm-transaction": "0.0.1",
+    "pg": "^2.6.2",
     "sails-postgresql": "^0.10.17",
     "waterline": "^0.10.28"
   },

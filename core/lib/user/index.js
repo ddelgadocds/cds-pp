@@ -1,4 +1,4 @@
-var User = require("../storage").User(); 
+var User = require("../storage").getModel("user");
 var Authenticator = require("../authenticator");
 
 module.exports = {

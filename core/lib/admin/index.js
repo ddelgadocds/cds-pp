@@ -1,4 +1,5 @@
-var Admin = require("../storage").Admin(); 
+var Admin = require("../storage").getModel("admin"); 
+
 var Authenticator = require("../authenticator");
 
 module.exports = {
