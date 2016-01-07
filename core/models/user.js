@@ -13,7 +13,7 @@ module.exports = {
 		email					: { type: 'string', required: true},
 		isArchived				: 'boolean',
 		defaultShippingAddress	: { model : 'address' },
-		role					: { type: 'string', required: true },
+		role					: { type: 'string' },
 		gender					: { type: 'string', enum: [ 'male', 'female', 'other' ] },
 		created					: { type: 'date' },
 		lastLogin 				: { type: 'date' },

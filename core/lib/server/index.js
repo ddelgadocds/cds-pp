@@ -22,8 +22,10 @@ function init(done) {
 	expressApp.use(BodyParser.json());
 
 	expressApp.use(Morgan('dev'));
-
+	
 	expressApp.use("/",Router);
+	expressApp.use(Express.static(__dirname + '/../../../public')); //point to the public folder
+	
 	expressApp.use(Bugsnag.errorHandler);
 
   

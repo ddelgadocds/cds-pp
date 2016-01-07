@@ -1,0 +1,340 @@
+
+
+{
+  "swagger":"2.0",
+  "info":{
+    "description":"",
+    "version":"1.0.0",
+    "title":"Logoworks | Print Platform API"
+  },
+  "host":"localhost:5050",
+  "basePath":"",
+  "schemes":[
+    "http"
+  ],
+  "paths": {
+    "/admin": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Create an admin",
+        "operationId": "create",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Object representing an Admin",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Admin"
+            }
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description" : "an admin access token"
+          }
+        ]
+      }
+    },
+    "/admin/login": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Login an admin user",
+        "operationId": "login",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Admin email & password",
+            "required": true,
+            "schema": {
+              "required" : [
+                "email",
+                "password"
+              ],
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "default" : "kobe@test.com"
+                },
+                "password": {
+                  "type": "string",
+                  "default" : "secret"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/admin/logout": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Logout an admin user",
+        "operationId": "logout",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description" : "an admin access token"
+          }
+        ]
+      }
+    },
+    "/admin/loginAsUser": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "summary": "Login the admin user as an user",
+        "operationId": "loginAsUser",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User email & password",
+            "required": true,
+            "schema": {
+              "required" : [
+                "email",
+                "password"
+              ],
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "default" : "kobe@test.com"
+                },
+                "password": {
+                  "type": "string",
+                  "default" : "secret"
+                }
+              }
+            }
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description" : "an admin access token"
+          }
+        ]
+      }
+    },
+    "/company": {
+      "get": {
+        "tags": [
+          "company"
+        ],
+        "summary": "Get all companies in the system",
+        "operationId": "getCompanies",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description" : "an admin access token"
+          }
+        ]
+      }
+    },
+    "/user": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Create an user",
+        "operationId": "create",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Object representing an User",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+              
+            }
+          },
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description" : "an admin access token"
+          }
+        ]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Login an user",
+        "operationId": "login",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User email & password",
+            "required": true,
+            "schema": {
+              "required" : [
+                "email",
+                "password"
+              ],
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "default" : "emeka@test.com"
+                },
+                "password": {
+                  "type": "string",
+                  "default" : "secret"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logout an user",
+        "operationId": "logout",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description" : "an user access token"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "Admin" : {
+      "type": "object",
+      "required" : [
+        "email",
+        "password",
+        "firstName",
+        "lastName"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "default" : "kobe@test.com"
+        },
+        "password": {
+          "type": "string",
+          "default" : "secret"
+        },
+        "firstName": {
+          "type": "string",
+          "default" : "Kobe"
+        },
+        "lastName": {
+          "type": "string",
+          "default" : "Bryant"
+        }
+      }
+    },
+    "User" : {
+      "type": "object",
+      "required" : [
+        "email",
+        "password",
+        "firstName",
+        "lastName"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "default" : "emeka@test.com"
+        },
+        "password": {
+          "type": "string",
+          "default" : "secret"
+        },
+        "firstName": {
+          "type": "string",
+          "default" : "Emeka"
+        },
+        "lastName": {
+          "type": "string",
+          "default" : "Okafor"
+        }
+      }
+    }
+
+  }
+}
