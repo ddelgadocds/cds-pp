@@ -8,13 +8,12 @@ var loadConfiguration = function(next){
 	
 	//load configuration
 	require('./config')(process.env.NODE_ENV);
-
-	next();
+    next();
 }
 	
 var initStorage = function(next){
 	console.log("Initializing storage");
-	require('./lib/storage').init(next);
+	require('./lib/storage').connect(next);
 }
 
 var initServer = function(next){

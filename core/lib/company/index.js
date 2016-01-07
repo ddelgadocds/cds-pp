@@ -1,4 +1,4 @@
-var Company = require("../storage").Company(); 
+var Company = require("../storage").getModel("company"); 
 
 module.exports = {
 	get : get,

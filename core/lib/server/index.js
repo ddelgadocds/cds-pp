@@ -28,13 +28,15 @@ function init(done) {
 	
 	expressApp.use(Bugsnag.errorHandler);
 
-  
-
 	printRoutes(expressApp);
 	if (process.env.PORT) {
 		expressApp.listen(process.env.PORT, done);
 	} else {
-		expressApp.listen(Nconf.get('server:port'), done);
+
+		expressApp.listen(Nconf.get('server:port'), function(){
+            console.log("listening on port " + Nconf.get('server:port'));
+            done();
+        });
 	}
 }
 
