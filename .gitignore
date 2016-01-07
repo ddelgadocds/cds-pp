@@ -1,5 +1,6 @@
 
 core/config/env/development.json
+core/config/env/mocha.json
 
 
 # Compiled source #
